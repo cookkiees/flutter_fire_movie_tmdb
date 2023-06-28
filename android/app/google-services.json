@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "854385689677",
+    "project_id": "flutter-fire-movie",
+    "storage_bucket": "flutter-fire-movie.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854385689677:android:0b42c27f47593672b70804",
+        "android_client_info": {
+          "package_name": "com.example.flutter_fire_movie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854385689677-a2j2fpdt5h7ldooapdk0m4p5t93f9539.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH8kJfDKGI7C0Nfj5SDsIqCnr6U83XmTQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854385689677-a2j2fpdt5h7ldooapdk0m4p5t93f9539.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
