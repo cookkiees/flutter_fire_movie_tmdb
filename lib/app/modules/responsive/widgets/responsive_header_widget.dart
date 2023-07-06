@@ -40,7 +40,7 @@ class ResponsiveHeaderWidget extends GetView<ResponsiveLayoutController> {
                       ),
                     )
                   : Text(
-                      '${constraints.maxWidth} 🔥 ',
+                      'Flutter 🔥 ',
                       style: MyTextTheme.defaultStyle(
                         color: Colors.purpleAccent,
                         fontWeight: FontWeight.bold,
