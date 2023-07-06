@@ -61,15 +61,13 @@ class ResponsiveHeaderWidget extends GetView<ResponsiveLayoutController> {
                     )
                   : Obx(
                       () => Row(
-                        children: List.generate(4, (index) {
+                        children: List.generate(3, (index) {
                           final titles = [
                             "Home",
                             "Discover",
-                            "Search",
                             "About",
                           ];
                           final isSelected = controller.tabIndex.value == index;
-
                           return InkWell(
                             onTap: () {
                               switch (index) {
@@ -82,21 +80,8 @@ class ResponsiveHeaderWidget extends GetView<ResponsiveLayoutController> {
                                       context, AppRoutes.discover);
                                   break;
                                 case 2:
-                                  Navigator.pushNamed(
-                                      context, AppRoutes.movieCompanies);
-                                  break;
-                                case 3:
-                                  Navigator.pushNamed(
-                                      context, AppRoutes.movieRelease);
-                                  break;
-                                case 4:
-                                  Navigator.pushNamed(
-                                      context, AppRoutes.tvShows);
-                                  break;
-                                case 5:
                                   Navigator.pushNamed(context, AppRoutes.about);
                                   break;
-
                                 default:
                                   break;
                               }

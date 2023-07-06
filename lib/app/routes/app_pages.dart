@@ -45,23 +45,6 @@ abstract class AppPages {
       ],
     ),
     GetPage(
-        name: AppRoutes.movieCompanies,
-        page: () => const ResponsiveLayoutPage(),
-        binding: ResponsiveLayoutBinding(),
-        bindings: [
-          GenreMovieBinding(),
-        ]),
-    GetPage(
-      name: AppRoutes.movieRelease,
-      page: () => const ResponsiveLayoutPage(),
-      binding: ResponsiveLayoutBinding(),
-    ),
-    GetPage(
-      name: AppRoutes.tvShows,
-      page: () => const ResponsiveLayoutPage(),
-      binding: ResponsiveLayoutBinding(),
-    ),
-    GetPage(
       name: AppRoutes.about,
       page: () => const ResponsiveLayoutPage(),
       binding: ResponsiveLayoutBinding(),

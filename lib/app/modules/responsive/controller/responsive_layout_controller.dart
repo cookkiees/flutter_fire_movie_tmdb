@@ -17,9 +17,6 @@ class ResponsiveLayoutController extends GetxController
   final titles = [
     "Home",
     "Discover",
-    "Movie Companies",
-    "Movie Release",
-    "Tv Shows",
     "About",
   ];
 }

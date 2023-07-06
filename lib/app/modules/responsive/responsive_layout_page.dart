@@ -53,13 +53,6 @@ class ResponsiveLayoutPage extends GetView<ResponsiveLayoutController> {
                   largeTablet: DiscoverPage(),
                   computer: DiscoverPage(),
                 );
-              } else if (controller.tabIndex.value == 2) {
-                return ResponsiveLayout(
-                  phone: Container(),
-                  tablet: Container(),
-                  largeTablet: Container(),
-                  computer: Container(),
-                );
               } else {
                 return ResponsiveLayout(
                   phone: Container(),

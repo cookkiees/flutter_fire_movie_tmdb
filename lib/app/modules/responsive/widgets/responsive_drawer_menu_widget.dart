@@ -33,9 +33,6 @@ class ResponsiveDrawerMenuWidget extends GetView<ResponsiveLayoutController> {
               ...[
                 "Home",
                 "Discover",
-                "Movie Companies",
-                "Movie Release",
-                "Tv Shows",
                 "About",
               ].asMap().entries.map((entry) {
                 final index = entry.key;
