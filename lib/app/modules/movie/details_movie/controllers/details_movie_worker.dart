@@ -17,4 +17,15 @@ class DetailsMovieWorker {
           }
         },
       );
+
+  prosesGetSimilarMovie(movieIds) async =>
+      await apiService.fetchDataSimilarMovie(movieIds).then(
+        (value) async {
+          if (value.statusCode == 200 || value.statusCode == 201) {
+            return value.body;
+          } else {
+            log("${value.statusCode}");
+          }
+        },
+      );
 }

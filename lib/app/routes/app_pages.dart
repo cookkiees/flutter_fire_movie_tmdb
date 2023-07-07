@@ -50,9 +50,11 @@ abstract class AppPages {
       binding: ResponsiveLayoutBinding(),
     ),
     GetPage(
-      name: AppRoutes.details,
-      page: () => const DetailsMoviePage(),
-      binding: DetailsMovieBinding(),
-    ),
+        name: '${AppRoutes.details}/:id',
+        page: () => const DetailsMoviePage(),
+        binding: DetailsMovieBinding(),
+        bindings: [
+          GenreMovieBinding(),
+        ]),
   ];
 }

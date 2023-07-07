@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_fire_movie/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 import '../../../components/custom_movie_detail_card_widget.dart';
@@ -28,6 +29,13 @@ class DiscoverMovieViews extends GetView<DiscoverMovieController> {
                       (BuildContext context, int index, int realIndex) {
                     var movie = controller.discoverMovie[index];
                     return CustomMovieDetailsCardWidget(
+                      onTap: () {
+                        if (controller.discoverMovie.isNotEmpty) {
+                          Get.toNamed(
+                            '${AppRoutes.details}/${controller.discoverMovie[index].id}',
+                          );
+                        }
+                      },
                       title: "${movie.title}",
                       voteAverage: '${movie.voteAverage}',
                       releaseDate: '${movie.releaseDate}',

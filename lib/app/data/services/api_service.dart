@@ -30,7 +30,11 @@ class ApiService extends GetConnect {
 
 // Details Movie
   Future<Response> fetchDataDetailsMovie(movieIds) =>
-      get("$url/discover/movie/$movieIds", headers: headers);
+      get("$url/movie/$movieIds", headers: headers);
+
+  // Details Movie
+  Future<Response> fetchDataSimilarMovie(movieIds) =>
+      get("$url/movie/$movieIds/similar", headers: headers);
 
 // Popular Movie
   Future<Response> fetchDataPopularMovie() =>
