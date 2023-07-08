@@ -52,12 +52,13 @@ abstract class AppPages {
       binding: ResponsiveLayoutBinding(),
     ),
     GetPage(
-        name: '${AppRoutes.details}/:id',
-        page: () => const DetailsMoviePage(),
-        binding: DetailsMovieBinding(),
-        bindings: [
-          GenreMovieBinding(),
-          ResponsiveLayoutBinding(),
-        ]),
+      name: '${AppRoutes.details}/:id',
+      page: () => const DetailsMoviePage(),
+      binding: DetailsMovieBinding(),
+      bindings: [
+        GenreMovieBinding(),
+        ResponsiveLayoutBinding(),
+      ],
+    ),
   ];
 }

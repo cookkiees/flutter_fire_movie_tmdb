@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fire_movie/app/modules/movie/details_movie/controllers/details_movie_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../../components/custom_movie_card_widget.dart';
@@ -9,6 +8,7 @@ import '../../../../theme/text_theme.dart';
 import '../../../../theme/utils/my_strings.dart';
 import '../../../responsive/responsive_layout.dart';
 import '../../genre_movie/controllers/genre_movie_controllers.dart';
+import '../controllers/details_movie_controller.dart';
 
 class SimilarMovieViews extends GetView<DetailsMovieController> {
   const SimilarMovieViews({

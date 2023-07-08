@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../components/custom_shadow_widget.dart';
-import 'controllers/companies_movie_controller.dart';
 
 import 'package:flutter/cupertino.dart';
 
 import '../../../components/custom_movie_card_widget.dart';
 import '../../../components/custom_movie_detail_card_widget.dart';
+import '../../../routes/app_routes.dart';
 import '../../../theme/text_theme.dart';
 import '../../../theme/utils/my_strings.dart';
 import '../../responsive/responsive_layout.dart';
+import '../details_movie/controllers/details_movie_controller.dart';
 import '../genre_movie/controllers/genre_movie_controllers.dart';
+import 'controllers/companies_movie_controller.dart';
 
 class CompaniesMovieViews extends GetView<CompaniesMovieController> {
   const CompaniesMovieViews({Key? key}) : super(key: key);
@@ -19,6 +21,8 @@ class CompaniesMovieViews extends GetView<CompaniesMovieController> {
   @override
   Widget build(BuildContext context) {
     final genre = Get.find<GenreMovieController>();
+    final details = Get.put(DetailsMovieController());
+
     return LayoutBuilder(
       builder: (context, constraints) {
         var isPhone = ResponsiveLayout.isPhone(context);
@@ -47,6 +51,14 @@ class CompaniesMovieViews extends GetView<CompaniesMovieController> {
                               ? Stack(
                                   children: [
                                     CustomMovieDetailsCardWidget(
+                                      onTap: () {
+                                        if (controller.disneyMovie.isNotEmpty) {
+                                          Get.toNamed(
+                                            '${AppRoutes.details}/${controller.disneyMovie[index].id}',
+                                          );
+                                        }
+                                        details.refreshData();
+                                      },
                                       height: 600,
                                       width: Get.width,
                                       addNewGradientColor: Colors.black,

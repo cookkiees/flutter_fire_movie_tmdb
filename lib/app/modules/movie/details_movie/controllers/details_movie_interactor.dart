@@ -1,8 +1,9 @@
-import 'package:flutter_fire_movie/app/data/model/credit_movie_response_model.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/model/credit_movie_response_model.dart';
 import '../../../../data/model/details_movie_response_model.dart';
 import '../../../../data/model/discover_movie_response_model.dart';
+import '../../../../data/model/videos_movie_response_model.dart';
 import 'details_movie_worker.dart';
 
 class DetailsMovieInteractor {
@@ -30,5 +31,12 @@ class DetailsMovieInteractor {
     var rec = await worker.prosesGetRecommendationMovie(movieIds);
     var recMovie = DiscoverMovieResponseModel.fromJson(rec).results;
     return recMovie;
+  }
+
+  Future<List<ResultsVideos>?> handleGetVideosMovie(movieIds) async {
+    var videos = await worker.prosesGetVideosMovie(movieIds);
+    var videosMovieResponseModel =
+        VideosMovieResponseModel.fromJson(videos).results;
+    return videosMovieResponseModel;
   }
 }

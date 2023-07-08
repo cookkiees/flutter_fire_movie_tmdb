@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import '../../../../data/model/credit_movie_response_model.dart';
 import '../../../../data/model/details_movie_response_model.dart';
 import '../../../../data/model/discover_movie_response_model.dart';
+import '../../../../data/model/videos_movie_response_model.dart';
 import 'details_movie_interactor.dart';
 
 class DetailsMovieController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final interactor = Get.find<DetailsMovieInteractor>();
+
   var currentIndex = 0.obs;
 
   void setCurrentIndex(int index) {
@@ -27,6 +29,7 @@ class DetailsMovieController extends GetxController
     getDetailsMovie();
     getSimilarMovie();
     getCreditMovie();
+    getVideosMovie();
     getRecommendationMovie();
     super.onInit();
     tabController = TabController(length: 3, vsync: this);
@@ -37,25 +40,27 @@ class DetailsMovieController extends GetxController
     isLoadingSimilarMovie.value = true;
     isLoadingCreditMovie.value = true;
     isLoadingRecommendationMovie.value = true;
+    isLoadingVideosMovie.value = true;
     getDetailsMovie();
     getSimilarMovie();
     getCreditMovie();
     getRecommendationMovie();
+    getVideosMovie();
   }
 
-  var id = "";
+  String? movieIds = "";
   var isLoadingDetailsMovie = false.obs;
   DetailsMovieResponseModel? detailsMovie;
   Future<void> getDetailsMovie() async {
     isLoadingDetailsMovie(true);
 
     try {
-      id = Get.parameters["id"]!;
-      if (id == "") {
+      movieIds = Get.parameters["id"];
+      if (movieIds == null) {
         isLoadingDetailsMovie(false);
         return;
       } else {
-        detailsMovie = await interactor.handleGetDetailsMovie(id);
+        detailsMovie = await interactor.handleGetDetailsMovie(movieIds);
       }
     } catch (e) {
       debugPrint("Error Get Details Movie: $e");
@@ -72,12 +77,12 @@ class DetailsMovieController extends GetxController
     isLoadingSimilarMovie.value = true;
 
     try {
-      id = Get.parameters["id"]!;
-      if (id == "") {
+      movieIds = Get.parameters["id"]!;
+      if (movieIds == null) {
         isLoadingSimilarMovie(false);
         return;
       } else {
-        similarMovie = await interactor.handleGetSimilarMovie(id);
+        similarMovie = await interactor.handleGetSimilarMovie(movieIds);
       }
     } catch (e) {
       debugPrint("Error Get Similar Movie: $e");
@@ -93,12 +98,12 @@ class DetailsMovieController extends GetxController
     isLoadingCreditMovie.value = true;
 
     try {
-      id = Get.parameters["id"]!;
-      if (id == "") {
+      movieIds = Get.parameters["id"]!;
+      if (movieIds == null) {
         isLoadingCreditMovie(false);
         return;
       } else {
-        creditMovie = await interactor.handleGetCreditMovie(id);
+        creditMovie = await interactor.handleGetCreditMovie(movieIds);
       }
     } catch (e) {
       debugPrint("Error Get Credit Movie: $e");
@@ -113,12 +118,12 @@ class DetailsMovieController extends GetxController
   getRecommendationMovie() async {
     isLoadingRecommendationMovie.value = true;
     try {
-      id = Get.parameters["id"]!;
-      if (id == "") {
+      movieIds = Get.parameters["id"]!;
+      if (movieIds == null) {
         isLoadingCreditMovie(false);
         return;
       } else {
-        var results = await interactor.handleGetRecommentdationMovie(id);
+        var results = await interactor.handleGetRecommentdationMovie(movieIds);
 
         if (results != null) {
           recommendationMovie.assignAll(results);
@@ -128,6 +133,24 @@ class DetailsMovieController extends GetxController
       debugPrint("Error Get Recommendation Movie: $e");
     } finally {
       isLoadingRecommendationMovie.value = false;
+    }
+  }
+
+  var isLoadingVideosMovie = false.obs;
+  final videosMovie = <ResultsVideos>[].obs;
+
+  getVideosMovie() async {
+    isLoadingVideosMovie.value = true;
+
+    try {
+      var videos = await interactor.handleGetVideosMovie(Get.parameters["id"]);
+      if (videos != null) {
+        videosMovie.assignAll(videos);
+      }
+    } catch (e) {
+      debugPrint("Error Get Up Videos Movie  Page: $e");
+    } finally {
+      isLoadingVideosMovie.value = false;
     }
   }
 }

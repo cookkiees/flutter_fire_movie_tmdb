@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_fire_movie/app/modules/movie/details_movie/controllers/details_movie_controller.dart';
-import 'package:flutter_fire_movie/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 import '../../../components/custom_movie_detail_card_widget.dart';
+import '../../../routes/app_routes.dart';
 import '../../../theme/utils/my_strings.dart';
+import '../details_movie/controllers/details_movie_controller.dart';
 import '../genre_movie/controllers/genre_movie_controllers.dart';
 import 'controllers/discover_movie_controller.dart';
 

@@ -1,6 +1,6 @@
-import 'package:flutter_fire_movie/app/data/model/companies_details_response_model.dart';
 import 'package:get/get.dart';
 
+import '../../../../data/model/companies_details_response_model.dart';
 import '../../../../data/model/discover_movie_response_model.dart';
 import 'companies_movie_worker.dart';
 

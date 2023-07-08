@@ -1,13 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fire_movie/app/modules/discover/discover_page.dart';
 
 import 'package:get/get.dart';
 
+import '../discover/discover_page.dart';
 import '../home/home_page.dart';
 import 'controller/responsive_layout_controller.dart';
 import 'responsive_layout.dart';
+import 'widgets/responsive_google_navbar_widget.dart';
 import 'widgets/responsive_header_widget.dart';
-import 'widgets/responsive_drawer_menu_widget.dart';
 
 class ResponsiveLayoutPage extends GetView<ResponsiveLayoutController> {
   const ResponsiveLayoutPage({super.key});
@@ -15,15 +16,9 @@ class ResponsiveLayoutPage extends GetView<ResponsiveLayoutController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size(double.infinity, 40),
-        child: ResponsiveLayout.isPhone(context)
-            ? const ResponsiveHeaderWidget()
-            : SizedBox.fromSize(),
-      ),
-      drawer: const ResponsiveDrawerMenuWidget(),
       backgroundColor: Colors.black,
       body: SafeArea(
+        top: kIsWeb ? true : false,
         child: Stack(
           children: [
             Obx(() {
@@ -56,6 +51,9 @@ class ResponsiveLayoutPage extends GetView<ResponsiveLayoutController> {
           ],
         ),
       ),
+      bottomNavigationBar: ResponsiveLayout.isPhone(context)
+          ? const ResponsiveGoogleNavbarWidget()
+          : null,
     );
   }
 }

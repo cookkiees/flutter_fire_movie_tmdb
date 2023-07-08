@@ -48,4 +48,15 @@ class DetailsMovieWorker {
           }
         },
       );
+
+  prosesGetVideosMovie(movieIds) async =>
+      await apiService.fetchDataVideosMovie(movieIds).then(
+        (value) async {
+          if (value.statusCode == 200 || value.statusCode == 201) {
+            return value.body;
+          } else {
+            log("${value.statusCode}");
+          }
+        },
+      );
 }

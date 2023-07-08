@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../responsive/responsive_layout.dart';
 import '../controllers/details_movie_controller.dart';
+import 'reviews_movie_views.dart';
 import 'universe_movie_views.dart';
 
 class TabBarAndTabBarViews extends GetView<DetailsMovieController> {
@@ -30,7 +31,7 @@ class TabBarAndTabBarViews extends GetView<DetailsMovieController> {
                           ? const EdgeInsets.only(left: 24)
                           : const EdgeInsets.only(left: 100),
                   child: SizedBox(
-                    width: 300,
+                    width: 310,
                     child: TabBar(
                       controller: controller.tabController,
                       labelPadding: const EdgeInsets.only(right: 42),
@@ -68,9 +69,7 @@ class TabBarAndTabBarViews extends GetView<DetailsMovieController> {
                     controller: controller.tabController,
                     children: const [
                       UniverseMovieViews(),
-                      Center(
-                        child: Text('Tab 2 Content'),
-                      ),
+                      ReviewsMovieViews(),
                       Center(
                         child: Text('Tab 3 Content'),
                       ),

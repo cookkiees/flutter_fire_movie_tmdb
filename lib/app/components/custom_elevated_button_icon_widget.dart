@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fire_movie/app/modules/responsive/responsive_layout.dart';
 
+import '../modules/responsive/responsive_layout.dart';
 import '../theme/text_theme.dart';
 
 class CustomElevatedButtonIconWidget extends StatelessWidget {
