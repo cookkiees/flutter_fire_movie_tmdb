@@ -103,7 +103,7 @@ class CustomMovieCardWidget extends StatelessWidget {
                   Row(
                     children: [
                       Icon(icon, size: 16, color: iconColor),
-                      const SizedBox(width: 4),
+                      const SizedBox(width: 3),
                       FutureBuilder<String>(
                         future: future,
                         builder: (context, snapshot) {

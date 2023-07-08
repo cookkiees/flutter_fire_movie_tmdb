@@ -15,6 +15,7 @@ class CustomMovieCardPageViewsWidget extends StatelessWidget {
     required this.voteAverage,
     required this.overview,
     required this.releaseDate,
+    this.onTap,
   });
   final Future<String>? future;
   final String title;
@@ -22,6 +23,7 @@ class CustomMovieCardPageViewsWidget extends StatelessWidget {
   final String imageUrl;
   final String overview;
   final String releaseDate;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -32,18 +34,21 @@ class CustomMovieCardPageViewsWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const SizedBox(height: 16),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
-              fit: BoxFit.cover,
-              alignment: Alignment.topCenter,
-              placeholder: (context, url) => const Center(
-                child: CupertinoActivityIndicator(
-                  color: Colors.white,
+          InkWell(
+            onTap: onTap,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
+                placeholder: (context, url) => const Center(
+                  child: CupertinoActivityIndicator(
+                    color: Colors.white,
+                  ),
                 ),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
           const SizedBox(height: 16),

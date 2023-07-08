@@ -28,6 +28,7 @@ abstract class AppPages {
         UpComingMovieBinding(),
         GenreMovieBinding(),
         CompaniesMovieBinding(),
+        DetailsMovieBinding(),
       ],
     ),
     GetPage(
@@ -42,6 +43,7 @@ abstract class AppPages {
         UpComingMovieBinding(),
         GenreMovieBinding(),
         CompaniesMovieBinding(),
+        DetailsMovieBinding(),
       ],
     ),
     GetPage(
@@ -55,6 +57,7 @@ abstract class AppPages {
         binding: DetailsMovieBinding(),
         bindings: [
           GenreMovieBinding(),
+          ResponsiveLayoutBinding(),
         ]),
   ];
 }

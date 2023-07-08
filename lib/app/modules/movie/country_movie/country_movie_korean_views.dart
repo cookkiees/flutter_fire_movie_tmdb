@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../components/custom_movie_card_widget.dart';
+import '../../../routes/app_routes.dart';
 import '../../../theme/text_theme.dart';
 import '../../../theme/utils/my_strings.dart';
 import '../../responsive/responsive_layout.dart';
+import '../details_movie/controllers/details_movie_controller.dart';
 import '../genre_movie/controllers/genre_movie_controllers.dart';
 import 'controllers/country_movie_controller.dart';
 
@@ -17,6 +19,8 @@ class CountryMovieKoreanViews extends GetView<CountryMovieController> {
   @override
   Widget build(BuildContext context) {
     final genre = Get.find<GenreMovieController>();
+    final details = Get.put(DetailsMovieController());
+
     var isPhone = ResponsiveLayout.isPhone(context);
     var isTablet = ResponsiveLayout.isTablet(context);
     return LayoutBuilder(
@@ -38,6 +42,7 @@ class CountryMovieKoreanViews extends GetView<CountryMovieController> {
                         style: MyTextTheme.defaultStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -67,6 +72,14 @@ class CountryMovieKoreanViews extends GetView<CountryMovieController> {
                               return Padding(
                                 padding: const EdgeInsets.only(right: 16),
                                 child: CustomMovieCardWidget(
+                                  onTap: () {
+                                    if (controller.koreanMovie.isNotEmpty) {
+                                      Get.toNamed(
+                                        '${AppRoutes.details}/${controller.koreanMovie[index].id}',
+                                      );
+                                    }
+                                    details.refreshData();
+                                  },
                                   releaseDate: '${movie.releaseDate}',
                                   title: '${movie.title}',
                                   voteAverage:

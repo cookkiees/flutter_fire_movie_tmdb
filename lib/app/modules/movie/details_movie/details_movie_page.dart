@@ -8,7 +8,10 @@ import '../../../components/custom_elevated_button_icon_widget.dart';
 import '../../../theme/text_theme.dart';
 import '../../../theme/utils/my_strings.dart';
 import '../../responsive/responsive_layout.dart';
+import '../../responsive/widgets/responsive_footer_widget.dart';
+import '../../responsive/widgets/responsive_header_widget.dart';
 import 'controllers/details_movie_controller.dart';
+import 'views/tabbar_and_tabbarviews.dart';
 
 class DetailsMoviePage extends GetView<DetailsMovieController> {
   const DetailsMoviePage({super.key});
@@ -23,11 +26,14 @@ class DetailsMoviePage extends GetView<DetailsMovieController> {
         () {
           var isLoadingDetails = controller.isLoadingDetailsMovie.value;
           var isLoadingSimilar = controller.isLoadingSimilarMovie.value;
+          var isLoadingCredit = controller.isLoadingCreditMovie.value;
 
-          if (isLoadingDetails || isLoadingSimilar) {
+          if (isLoadingDetails || isLoadingSimilar || isLoadingCredit) {
             return const CupertinoActivityIndicator();
           } else {
             var movie = controller.detailsMovie;
+            var cast = controller.creditMovie;
+
             return Scaffold(
               backgroundColor: Colors.black,
               body: SafeArea(
@@ -101,12 +107,12 @@ class DetailsMoviePage extends GetView<DetailsMovieController> {
                                       ),
                                       const SizedBox(width: 4),
                                       Text(
-                                        '${movie.voteAverage.toString()}  | ${movie.runtime} m • ${movie.releaseDate} • ${movie.genres![1].name} • Movie',
+                                        '${movie.voteAverage.toString()}  | ${movie.runtime} m • ${movie.releaseDate} • ${movie.genres![0].name} • Movie',
                                         style: MyTextTheme.defaultStyle(
                                           color: Colors.grey[300]!,
                                           fontSize: 12,
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                   const SizedBox(height: 20),
@@ -183,56 +189,48 @@ class DetailsMoviePage extends GetView<DetailsMovieController> {
                                               ],
                                             )
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
-                            isPhone || isTablet || constraints.maxWidth <= 820
-                                ? Positioned(
-                                    right: 0,
-                                    child: Padding(
-                                      padding: isPhone || isTablet
-                                          ? const EdgeInsets.symmetric(
-                                              horizontal: 16)
-                                          : constraints.maxWidth <= 1000
-                                              ? const EdgeInsets.symmetric(
-                                                  horizontal: 24)
-                                              : const EdgeInsets.symmetric(
-                                                  horizontal: 100),
-                                      child: Row(
-                                        children: [
-                                          IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.file_download_outlined,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.share,
-                                              color: Colors.white,
-                                              size: 18,
-                                            ),
-                                          ),
-                                          IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.thumb_up,
-                                              color: Colors.white,
-                                              size: 18,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox.shrink()
+                            const ResponsiveHeaderWidget(),
                           ],
                         ),
                       ),
                     ),
+                    const SizedBox(height: 12),
+                    isPhone || isTablet || constraints.maxWidth <= 820
+                        ? Padding(
+                            padding: const EdgeInsets.only(left: 12),
+                            child: Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.file_download_outlined,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.share,
+                                    color: Colors.white,
+                                    size: 18,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.thumb_up,
+                                    color: Colors.white,
+                                    size: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : const SizedBox.shrink(),
                     const SizedBox(height: 50),
                     Padding(
                       padding: isPhone || isTablet
@@ -267,13 +265,97 @@ class DetailsMoviePage extends GetView<DetailsMovieController> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 50),
+                    Obx(
+                      () => controller.isLoadingCreditMovie.value
+                          ? const CupertinoActivityIndicator()
+                          : Padding(
+                              padding: isPhone || isTablet
+                                  ? const EdgeInsets.symmetric(horizontal: 16)
+                                  : constraints.maxWidth <= 1000
+                                      ? const EdgeInsets.symmetric(
+                                          horizontal: 24)
+                                      : const EdgeInsets.symmetric(
+                                          horizontal: 100),
+                              child: Wrap(
+                                spacing: 24.0,
+                                runSpacing: 24.0,
+                                children: List<Widget>.generate(
+                                  (cast?.length ?? 0).clamp(0, 4),
+                                  (index) => Builder(
+                                    builder: (context) {
+                                      final artist = cast?[index];
+                                      if (artist != null) {
+                                        return Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            artist.profilePath != null
+                                                ? CircleAvatar(
+                                                    backgroundImage:
+                                                        NetworkImage(
+                                                      "${MyString.imageUrlOrigin}${artist.profilePath}",
+                                                    ),
+                                                  )
+                                                : const CircleAvatar(
+                                                    backgroundColor:
+                                                        Colors.purple,
+                                                    child: Icon(
+                                                      Icons.person,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                            const SizedBox(width: 12),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "${artist.name}",
+                                                  overflow: TextOverflow.clip,
+                                                  style:
+                                                      MyTextTheme.defaultStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "${artist.character}",
+                                                  overflow: TextOverflow.clip,
+                                                  style:
+                                                      MyTextTheme.defaultStyle(
+                                                    color: Colors.grey[300]!,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      } else {
+                                        return const SizedBox(); // Widget kosong jika artist null
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                    ),
                     SizedBox(
-                      height: isPhone || isTablet ? 16 : 100,
+                      height: isPhone || isTablet ? 16 : 80,
                     ),
-                    const SizedBox(
+                    controller.recommendationMovie.isEmpty
+                        ? const SizedBox.shrink()
+                        : const TabBarAndTabBarViews(),
+                    SizedBox(
+                      height: isPhone || isTablet ? 16 : 50,
+                    ),
+                    SizedBox(
                       width: double.infinity,
-                      child: SimilarMovieViews(),
+                      child: controller.similarMovie!.isEmpty
+                          ? const SizedBox.shrink()
+                          : const SimilarMovieViews(),
                     ),
+                    const ResponsiveFooterWidget()
                   ],
                 ),
               )),

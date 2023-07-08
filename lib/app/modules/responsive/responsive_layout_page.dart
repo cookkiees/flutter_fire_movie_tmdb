@@ -3,7 +3,6 @@ import 'package:flutter_fire_movie/app/modules/discover/discover_page.dart';
 
 import 'package:get/get.dart';
 
-import '../../theme/text_theme.dart';
 import '../home/home_page.dart';
 import 'controller/responsive_layout_controller.dart';
 import 'responsive_layout.dart';
@@ -19,18 +18,7 @@ class ResponsiveLayoutPage extends GetView<ResponsiveLayoutController> {
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, 40),
         child: ResponsiveLayout.isPhone(context)
-            ? AppBar(
-                backgroundColor: Colors.purple,
-                title: Obx(
-                  () => Text(
-                    controller.titles[controller.tabIndex.value].toUpperCase(),
-                    style: MyTextTheme.defaultStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                ))
+            ? const ResponsiveHeaderWidget()
             : SizedBox.fromSize(),
       ),
       drawer: const ResponsiveDrawerMenuWidget(),

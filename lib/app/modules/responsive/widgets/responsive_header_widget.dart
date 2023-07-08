@@ -29,82 +29,55 @@ class ResponsiveHeaderWidget extends GetView<ResponsiveLayoutController> {
                 ? MainAxisAlignment.start
                 : MainAxisAlignment.spaceBetween,
             children: [
-              ResponsiveLayout.isTablet(context)
-                  ? IconButton(
-                      splashRadius: 18,
-                      onPressed: () => controller.toggleDrawer(context),
-                      icon: const Icon(
-                        Icons.menu_outlined,
-                        size: 18.0,
-                        color: Colors.white,
-                      ),
-                    )
-                  : Text(
-                      'Flutter 🔥 ',
-                      style: MyTextTheme.defaultStyle(
-                        color: Colors.purpleAccent,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      ),
-                    ),
-              ResponsiveLayout.isTablet(context)
-                  ? Obx(
-                      () => Text(
-                        controller.titles[controller.tabIndex.value]
-                            .toUpperCase(),
-                        style: MyTextTheme.defaultStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
+              Text(
+                'Flutter 🔥 ',
+                style: MyTextTheme.defaultStyle(
+                  color: Colors.purpleAccent,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+              Obx(
+                () => Row(
+                  children: List.generate(3, (index) {
+                    final titles = [
+                      "Home",
+                      "Discover",
+                      "About",
+                    ];
+                    final isSelected = controller.tabIndex.value == index;
+                    return InkWell(
+                      onTap: () {
+                        switch (index) {
+                          case 0:
+                            Navigator.pushNamed(context, AppRoutes.initial);
+                            break;
+                          case 1:
+                            Navigator.pushNamed(context, AppRoutes.discover);
+                            break;
+                          case 2:
+                            Navigator.pushNamed(context, AppRoutes.about);
+                            break;
+                          default:
+                            break;
+                        }
+                        controller.changeTabIndex(index);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Text(
+                          titles[index],
+                          style: GoogleFonts.urbanist(
+                            color:
+                                isSelected ? Colors.purpleAccent : Colors.white,
+                            fontWeight: isSelected ? FontWeight.bold : null,
+                          ),
                         ),
                       ),
-                    )
-                  : Obx(
-                      () => Row(
-                        children: List.generate(3, (index) {
-                          final titles = [
-                            "Home",
-                            "Discover",
-                            "About",
-                          ];
-                          final isSelected = controller.tabIndex.value == index;
-                          return InkWell(
-                            onTap: () {
-                              switch (index) {
-                                case 0:
-                                  Navigator.pushNamed(
-                                      context, AppRoutes.initial);
-                                  break;
-                                case 1:
-                                  Navigator.pushNamed(
-                                      context, AppRoutes.discover);
-                                  break;
-                                case 2:
-                                  Navigator.pushNamed(context, AppRoutes.about);
-                                  break;
-                                default:
-                                  break;
-                              }
-                              controller.changeTabIndex(index);
-                            },
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 24),
-                              child: Text(
-                                titles[index],
-                                style: GoogleFonts.urbanist(
-                                  color: isSelected
-                                      ? Colors.purpleAccent
-                                      : Colors.white,
-                                  fontWeight:
-                                      isSelected ? FontWeight.bold : null,
-                                ),
-                              ),
-                            ),
-                          );
-                        }),
-                      ),
-                    ),
+                    );
+                  }),
+                ),
+              ),
             ],
           ),
         );

@@ -28,4 +28,24 @@ class DetailsMovieWorker {
           }
         },
       );
+  prosesGetCreditMovie(movieIds) async =>
+      await apiService.fetchDataCreditMovie(movieIds).then(
+        (value) async {
+          if (value.statusCode == 200 || value.statusCode == 201) {
+            return value.body;
+          } else {
+            log("${value.statusCode}");
+          }
+        },
+      );
+  prosesGetRecommendationMovie(movieIds) async =>
+      await apiService.fetchDataRecommendationMovie(movieIds).then(
+        (value) async {
+          if (value.statusCode == 200 || value.statusCode == 201) {
+            return value.body;
+          } else {
+            log("${value.statusCode}");
+          }
+        },
+      );
 }

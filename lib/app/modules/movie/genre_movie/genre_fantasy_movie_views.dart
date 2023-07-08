@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../components/custom_movie_card_widget.dart';
+import '../../../routes/app_routes.dart';
 import '../../../theme/text_theme.dart';
 import '../../../theme/utils/my_strings.dart';
 import '../../responsive/responsive_layout.dart';
+import '../details_movie/controllers/details_movie_controller.dart';
 import '../genre_movie/controllers/genre_movie_controllers.dart';
 
 class GenreFantasyMovieViews extends GetView<GenreMovieController> {
@@ -16,6 +18,8 @@ class GenreFantasyMovieViews extends GetView<GenreMovieController> {
   @override
   Widget build(BuildContext context) {
     final genre = Get.find<GenreMovieController>();
+    final details = Get.put(DetailsMovieController());
+
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         var isPhone = ResponsiveLayout.isPhone(context);
@@ -67,6 +71,14 @@ class GenreFantasyMovieViews extends GetView<GenreMovieController> {
                               return Padding(
                                 padding: const EdgeInsets.only(right: 16),
                                 child: CustomMovieCardWidget(
+                                  onTap: () {
+                                    if (controller.fantasyMovie.isNotEmpty) {
+                                      Get.toNamed(
+                                        '${AppRoutes.details}/${controller.fantasyMovie[index].id}',
+                                      );
+                                    }
+                                    details.refreshData();
+                                  },
                                   releaseDate: '${movie.releaseDate}',
                                   title: '${movie.title}',
                                   voteAverage:

@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_fire_movie/app/modules/movie/details_movie/controllers/details_movie_controller.dart';
 import 'package:flutter_fire_movie/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +17,8 @@ class DiscoverMovieViews extends GetView<DiscoverMovieController> {
   @override
   Widget build(BuildContext context) {
     final genre = Get.find<GenreMovieController>();
+    final details = Get.put(DetailsMovieController());
+
     return LayoutBuilder(
       builder: ((context, constraints) {
         return Obx(
@@ -35,6 +38,7 @@ class DiscoverMovieViews extends GetView<DiscoverMovieController> {
                             '${AppRoutes.details}/${controller.discoverMovie[index].id}',
                           );
                         }
+                        details.refreshData();
                       },
                       title: "${movie.title}",
                       voteAverage: '${movie.voteAverage}',

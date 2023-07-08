@@ -4,6 +4,7 @@ import 'package:flutter_fire_movie/app/modules/movie/details_movie/controllers/d
 import 'package:get/get.dart';
 
 import '../../../../components/custom_movie_card_widget.dart';
+import '../../../../routes/app_routes.dart';
 import '../../../../theme/text_theme.dart';
 import '../../../../theme/utils/my_strings.dart';
 import '../../../responsive/responsive_layout.dart';
@@ -48,7 +49,7 @@ class SimilarMovieViews extends GetView<DetailsMovieController> {
                         SizedBox(
                           height: 370,
                           child: GridView.builder(
-                            itemCount: controller.similarMovie!.length,
+                            itemCount: controller.similarMovie?.length,
                             shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             padding: isPhone || isTablet
@@ -64,18 +65,26 @@ class SimilarMovieViews extends GetView<DetailsMovieController> {
                             ),
                             itemBuilder: (BuildContext context, int index) {
                               var movie = controller.similarMovie![index];
-
                               return Padding(
                                 padding: const EdgeInsets.only(right: 16),
                                 child: CustomMovieCardWidget(
+                                  onTap: () {
+                                    if (controller.similarMovie!.isNotEmpty) {
+                                      Get.toNamed(
+                                        '${AppRoutes.details}/${controller.similarMovie?[index].id}',
+                                      );
+                                    }
+                                    controller.refreshData();
+                                  },
                                   releaseDate: '${movie.releaseDate}',
                                   title: '${movie.title}',
                                   voteAverage:
-                                      movie.voteAverage!.toStringAsFixed(1),
+                                      movie.voteAverage?.toStringAsFixed(1) ??
+                                          '',
                                   imageUrl:
                                       "${MyString.imageUrlOrigin}${movie.posterPath}",
-                                  future: genre
-                                      .getFirstGenreFromMovie(movie.genreIds!),
+                                  future: genre.getFirstGenreFromMovie(
+                                      movie.genreIds ?? []),
                                 ),
                               );
                             },
